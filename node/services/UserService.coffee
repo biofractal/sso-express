@@ -1,23 +1,26 @@
-
-
 module.exports = (db)->
 	users = db.get 'users'
 
 	findByProfile:(profile, next) ->
-		console.log 'profile', profile
-		id = profile.nameId
-		@findById id, (err, user) ->
+		mail = profile.mail
+
+		@findByMail mail, (err, user)->
+			return next err if err?
 			return next null, user if user?
 			users.insert
-				_id:id
+				mail: mail
 				username: profile.uid
-				email: profile.email
 				displayName: profile.cn
 				firstName: profile.givenName
 				lastName: profile.sn
 			, (err, user)->
 				return next err if err?
 				next null, user
+
+	findByMail:(mail, next) ->
+		users.findOne {mail:mail}, (err, user)->
+			return next err if err?
+			next null, user
 
 	findById:(id, next) ->
 		users.findById id, (err, user)->

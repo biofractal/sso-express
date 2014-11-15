@@ -16,7 +16,6 @@ module.exports = (config, passport, db) ->
 		entryPoint: config.passport.saml.entryPoint
 		issuer: config.passport.saml.issuer
 	,(profile, done) ->
-		console.log 'profile'. profile
 		userService.findByProfile profile, (err, user) ->
 			return done err if err?
 			done null, user

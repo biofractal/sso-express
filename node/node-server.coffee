@@ -1,5 +1,6 @@
+require('dotenv').load()
 config = require('./config')[process.env.NODE_ENV || 'development']
-db = require('monk')(config.mongo.url)
+db = require('monk')(process.env.MONGO_URL)
 express = require 'express'
 bodyParser = require 'body-parser'
 cookieParser = require 'cookie-parser'
@@ -15,7 +16,7 @@ app.use express.static __dirname
 app.use cookieParser()
 app.use bodyParser.urlencoded {extended: true}
 app.use bodyParser.json()
-app.use session { secret: config.app.secret, saveUninitialized: true, resave: true }
+app.use session { secret: process.env.SESSION_SECRET, saveUninitialized: true, resave: true }
 app.use passport.initialize()
 app.use passport.session()
 app.all '*', (req, res, next) ->
