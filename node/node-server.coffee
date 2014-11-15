@@ -14,8 +14,10 @@ app.all '*', (req, res, next) ->
 	res.header 'Access-Control-Allow-Headers', 'X-Requested-With, Content-Type, Accept'
 	next()
 
+
 #routes
-new exports.TestRoutes app
+require('./TestRoutes')(app)
+
 
 #app start
 port = app.get 'port'

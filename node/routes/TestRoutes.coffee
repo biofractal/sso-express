@@ -1,9 +1,9 @@
-class exports.TestRoutes
+testService = require './TestService'
 
-	constructor :(@app) ->
-		@testService = exports.TestService
+module.exports = (app)->
 
-		@app.get '/sso/ping', (req, res)=>
-			res.send @testService.ping()
+	app.get '/sso/ping1', (req, res)=>
+		res.send testService.ping1()
 
-
+	app.get '/sso/ping2', (req, res)=>
+		res.send testService.ping2()

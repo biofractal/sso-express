@@ -24,11 +24,9 @@ module.exports = (grunt) ->
 		coffee:
 			node:
 				files:
-					'build/node-server.js':[
-						'node/services/*.coffee'
-						'node/routes/*.coffee'
-						'node/*.coffee'
-					]
+					'build/TestService.js': 'node/services/TestService.coffee'
+					'build/TestRoutes.js': 'node/routes/TestRoutes.coffee'
+					'build/node-server.js': 'node/node-server.coffee'
 
 		watch:
 			node:
@@ -50,7 +48,7 @@ module.exports = (grunt) ->
 
 		open :
 			dev :
-				path: 'http://sso-express.localhost/sso/ping'
+				path: 'http://sso-express.localhost/sso/ping1'
 
 
 	grunt.loadNpmTasks 'grunt-contrib-clean'
