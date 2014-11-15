@@ -1,0 +1,51 @@
+<md:EntityDescriptor entityID="sso-express.localhost" xmlns:md="urn:oasis:names:tc:SAML:2.0:metadata">
+	<md:SPSSODescriptor AuthnRequestsSigned="false" WantAssertionsSigned="true" protocolSupportEnumeration="urn:oasis:names:tc:SAML:2.0:protocol">
+		<md:KeyDescriptor>
+			<ds:KeyInfo xmlns:ds="http://www.w3.org/2000/09/xmldsig#">
+				<ds:X509Data>
+					<ds:X509Certificate>
+MIIDKjCCAhKgAwIBAgIJALGwhzVnUZt2MA0GCSqGSIb3DQEBCwUAMBYxFDASBgNV
+BAMTC3Nzby1leHByZXNzMB4XDTE0MTExNTE1MTMwMloXDTI0MTExMjE1MTMwMlow
+FjEUMBIGA1UEAxMLc3NvLWV4cHJlc3MwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAw
+ggEKAoIBAQCyGP5wCbgi63vN6BjtKDVd8B9Bp660S2ftLhq3uvpPLSp9Gj8hJAyB
+5cRGKSFoIxpP3MqfDPOFTGZdDHxWZndmqYoW0mC0Hhd7sa/r0aZ170N3RS8kRsKC
+V5m7vml77rHiFbUOKJydWcLrh+OskAwO+91YOF3vtgFzWf+ERr5D2Vzcm+gYYZPk
+DnkiARLfHgDGggvHkI9gGNJcQ+z24v8yWCbxBknnT4STyfDx+cpFKxhe+/r7+8WX
+wQBuFOwQ6oDfWhEu5a47Ak4p0MAlEbBAOnRlKwaaL4W4VdOFutrGbULkYRYDgRVQ
+RypAIlN2S5IvBFy6KsBQAsfS5wsQ6s+tAgMBAAGjezB5MAkGA1UdEwQCMAAwLAYJ
+YIZIAYb4QgENBB8WHU9wZW5TU0wgR2VuZXJhdGVkIENlcnRpZmljYXRlMB0GA1Ud
+DgQWBBSZ9VlI4xGT7Ir6O6gstyA0ujNiuTAfBgNVHSMEGDAWgBSZ9VlI4xGT7Ir6
+O6gstyA0ujNiuTANBgkqhkiG9w0BAQsFAAOCAQEAkOf0KCU3MBNdBdk5XofSgKaB
+2MlUQUur3RW+KYaR6KcchpjWCcD6AulpsBS+Ht+J7phNliToVSCIkMklkwjPNJft
+3w9Dd5ljbeffqZlMCaMOFGSYiVrIjDRkk74yxLQ+PQ31sfwrfQPfXF6dCPdWu5Tf
+uSFQWc8/5HEGwGLpOU6oFyVGApv0R99jr+pFn6XYSrX/11mzNZsccPg02ddPchVV
+DB8JTHTIhZSBLKYHMR2DiI8z2vjonGNVMI65AH5mXhsZzoPWmSTz5UqaHvhPuDJg
+eKKoTcQ9+Ljf9VM5AzAeGe/LK0ENgwgKvLYQNL5xdZPWfhPr5uHmZN+rYcNy4g==
+					</ds:X509Certificate>
+				</ds:X509Data>
+			</ds:KeyInfo>
+		</md:KeyDescriptor>
+		<md:NameIDFormat>urn:oasis:names:tc:SAML:2.0:nameid-format:persistent</md:NameIDFormat>
+		<md:NameIDFormat>urn:oasis:names:tc:SAML:2.0:nameid-format:transient</md:NameIDFormat>
+		<md:AssertionConsumerService isDefault="true" index="0" Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST" Location="http://sso-express.localhost/saml/consume" />
+		<md:AttributeConsumingService isDefault="true" index="0">
+			<md:ServiceName xml:lang="en">SSO-Express</md:ServiceName>
+			<md:ServiceDescription xml:lang="en">An express (nodejs) API to securely process SAML2 Single Sign On requests and responses.</md:ServiceDescription>
+			<md:RequestedAttribute FriendlyName="Email" Name="urn:oid:0.9.2342.19200300.100.1.3" NameFormat="urn:oasis:names:tc:SAML:2.0:attrname-format:uri" />
+			<md:RequestedAttribute FriendlyName="DisplayName" Name="urn:oid:2.16.840.1.113730.3.1.241" NameFormat="urn:oasis:names:tc:SAML:2.0:attrname-format:uri" />
+			<md:RequestedAttribute FriendlyName="FirstName" Name="urn:oid:2.5.4.42" NameFormat="urn:oasis:names:tc:SAML:2.0:attrname-format:uri" />
+			<md:RequestedAttribute FriendlyName="LastName" Name="urn:oid:2.5.4.4" NameFormat="urn:oasis:names:tc:SAML:2.0:attrname-format:uri" />
+			<md:RequestedAttribute FriendlyName="eduPersonPrincipalName" Name="urn:oid:1.3.6.1.4.1.5923.1.1.1.6" NameFormat="urn:oasis:names:tc:SAML:2.0:attrname-format:uri" />
+			<md:RequestedAttribute FriendlyName="eduPersonTargetedID" Name="urn:oid:1.3.6.1.4.1.5923.1.1.1.10" NameFormat="urn:oasis:names:tc:SAML:2.0:attrname-format:uri" />
+		</md:AttributeConsumingService>
+	</md:SPSSODescriptor>
+	<md:Organization>
+		<md:OrganizationName xml:lang="en">Fierce Development</md:OrganizationName>
+		<md:OrganizationDisplayName xml:lang="en">Fierce Devlopement Ltd</md:OrganizationDisplayName>
+		<md:OrganizationURL xml:lang="en">http://www.fierce-development.com/</md:OrganizationURL>
+	</md:Organization>
+	<md:ContactPerson contactType="technical">
+		<md:SurName>SSO Support</md:SurName>
+		<md:EmailAddress>mailto:jonny@fierce-development.com</md:EmailAddress>
+	</md:ContactPerson>
+</md:EntityDescriptor>

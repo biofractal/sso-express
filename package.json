@@ -14,8 +14,12 @@
     "express": "*",
     "body-parser": "*",
     "request": "~2.34.0",
-    "dotenv": "~0.4.0",
-    "winston": "~0.8.3"
+    "winston": "~0.8.3",
+    "passport": "~0.2.1",
+    "passport-saml": "~0.6.0",
+    "cookie-parser": "~1.3.3",
+    "express-session": "~1.9.1",
+    "monk": "~0.9.0"
   },
   "devDependencies": {
     "grunt": "~0.4.2",

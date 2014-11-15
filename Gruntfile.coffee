@@ -23,10 +23,12 @@ module.exports = (grunt) ->
 
 		coffee:
 			node:
-				files:
-					'build/TestService.js': 'node/services/TestService.coffee'
-					'build/TestRoutes.js': 'node/routes/TestRoutes.coffee'
-					'build/node-server.js': 'node/node-server.coffee'
+				expand: true
+				flatten: true
+				cwd: 'node'
+				src: ['**/*.coffee']
+				dest: 'build/'
+				ext: '.js'
 
 		watch:
 			node:
@@ -48,7 +50,7 @@ module.exports = (grunt) ->
 
 		open :
 			dev :
-				path: 'http://sso-express.localhost/sso/ping1'
+				path: 'http://sso-express.localhost/saml/initiate'
 
 
 	grunt.loadNpmTasks 'grunt-contrib-clean'
