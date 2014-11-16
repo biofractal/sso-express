@@ -11,6 +11,13 @@ module.exports = (grunt) ->
 				src: ['**/*.*']
 				dest: 'iis'
 
+			cert:
+				flatten:true
+				expand:true
+				cwd: 'saml'
+				src: ['**/*.key']
+				dest: 'iis/'
+
 			npm:
 				src: ['package.json']
 				dest: 'iis/'
