@@ -10,5 +10,3 @@ module.exports = (app, config, passport)->
 			successRedirect: "/"
 			failureRedirect: "/"
 			failureFlash: true
-
-	return
