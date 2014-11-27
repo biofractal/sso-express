@@ -11,7 +11,6 @@ winston = require 'winston'
 
 #app
 app = express()
-app.set 'port', process.env.PORT ? 3000
 app.use express.static __dirname
 app.use cookieParser()
 app.use bodyParser.urlencoded {extended: true}
@@ -33,8 +32,7 @@ require('./SSORoutes')(app, config, passport)
 
 
 #app start
-port = app.get 'port'
-app.listen port, ->
-	winston.info "#{config.app.name} listening on port #{port}"
+app.listen config.app.port, ->
+	winston.info "#{config.app.name} listening on port #{config.app.port}"
 
 

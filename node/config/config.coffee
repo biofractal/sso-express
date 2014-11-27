@@ -3,7 +3,7 @@ module.exports =
 		app:
 			name: 'SSO-Express Development'
 			port: process.env.PORT or 3000
-			idp:'testshib'
+			idp:'openid'
 
 		passport:
 			saml:
@@ -15,7 +15,3 @@ module.exports =
 					entryPoint:'https://openidp.feide.no/simplesaml/saml2/idp/SSOService.php'
 				testshib:
 					entryPoint:'https://idp.testshib.org/idp/profile/SAML2/Redirect/SSO'
-
-
-
-
