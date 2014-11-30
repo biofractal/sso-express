@@ -1,12 +1,21 @@
-module.exports = (app, config, passport)->
+router = require('express').Router()
 
-	app.get '/saml/initiate',
-		passport.authenticate 'saml',
-			successRedirect: "/"
-			failureRedirect: "/saml/initiate"
+module.exports = (passports) ->
 
-	app.post '/saml/consume',
-		passport.authenticate 'saml',
+	# router.get '/saml/initiate/tenant/:key', (req, res)->
+	# 	key = req.params.key
+	# 	console.log 'key', key
+	# 	console.log req
+	# 	res.send key
+
+	router.get '/saml/initiate/tenant/:key',
+		passports.middleware "authenticate", 'saml',
 			successRedirect: "/"
 			failureRedirect: "/"
-			failureFlash: true
+
+	router.post '/saml/consume',
+		passports.middleware "authenticate", 'saml',
+			successRedirect: "/"
+			failureRedirect: "/"
+
+	return router

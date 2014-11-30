@@ -33,7 +33,7 @@ module.exports = (grunt) ->
 				expand: true
 				flatten: true
 				cwd: 'node'
-				src: ['**/*.coffee']
+				src: ['**/*.coffee','**/*.config.coffee']
 				dest: 'build/'
 				ext: '.js'
 
@@ -57,7 +57,9 @@ module.exports = (grunt) ->
 
 		open :
 			dev :
-				path: 'http://sso-express.localhost/saml/initiate'
+				#path: 'http://sso-express.localhost/'
+				#path: 'http://sso-express.localhost/sso/saml/initiate/tenant/openid'
+				path: 'http://sso-express.localhost/sso/saml/initiate/tenant/testshib?qkey=testshib'
 
 
 	grunt.loadNpmTasks 'grunt-contrib-clean'

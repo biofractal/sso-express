@@ -1,38 +1,34 @@
 require('dotenv').load()
-config = require('./config')[process.env.NODE_ENV || 'development']
-db = require('monk')(process.env.MONGO_URL)
+appConfig = require('./appConfig')[process.env.NODE_ENV || 'development']
+db = require('monk') process.env.MONGO_URL
 express = require 'express'
 bodyParser = require 'body-parser'
 cookieParser = require 'cookie-parser'
 session = require 'express-session'
-passport = require 'passport'
-samlStrategy = require 'passport-saml'
 winston = require 'winston'
+Passports =  require 'passports'
+passports = new Passports require('./passportsConfig') appConfig, db
 
 #app
 app = express()
-app.use express.static __dirname
 app.use cookieParser()
 app.use bodyParser.urlencoded {extended: true}
 app.use bodyParser.json()
 app.use session { secret: process.env.SESSION_SECRET, saveUninitialized: true, resave: true }
-app.use passport.initialize()
-app.use passport.session()
+app.use passports.attach()
+app.use passports.middleware "initialize"
+app.use passports.middleware "session"
+
+#CORS
 app.all '*', (req, res, next) ->
 	res.header 'Access-Control-Allow-Origin', '*'
 	res.header 'Access-Control-Allow-Headers', 'X-Requested-With, Content-Type, Accept'
 	next()
 
-#passport
-require('./passport')(config, passport, db)
-
 #routes
-require('./AppRoutes')(app)
-require('./SSORoutes')(app, config, passport)
-
+app.use '/', require('./AppRoutes')
+app.use '/sso', require('./SSORoutes') passports
 
 #app start
-app.listen config.app.port, ->
-	winston.info "#{config.app.name} listening on port #{config.app.port}"
-
-
+app.listen appConfig.app.port, ->
+	winston.info "#{appConfig.app.name} listening on port #{appConfig.app.port}"
