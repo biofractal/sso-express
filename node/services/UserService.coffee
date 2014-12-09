@@ -1,4 +1,3 @@
-
 module.exports = (db)->
 	users = db.get 'users'
 

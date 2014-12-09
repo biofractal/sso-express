@@ -8,4 +8,4 @@ module.exports =
 			saml:
 				issuer: 'sso-express.localhost'
 				privateKeyFile:'sso-express.key'
-				path:'/sso/saml/consume'
+				path:'/api/sso/consume/saml'

@@ -1,21 +1,17 @@
-router = require('express').Router()
+module.exports = (passportify) ->
+	router = require('express').Router()
+	router.use passportify.intercept()
+	router.use passportify.run "initialize"
+	router.use passportify.run "session"
 
-module.exports = (passports) ->
+	router.get '/:tenantKey/initiate/saml',
+		passportify.run "authenticate", 'saml'
 
-	# router.get '/saml/initiate/tenant/:key', (req, res)->
-	# 	key = req.params.key
-	# 	console.log 'key', key
-	# 	console.log req
-	# 	res.send key
+	router.post '/consume/saml',
+		passportify.run "authenticate", 'saml'
+	,
+		(req, res)->
+				res.send req.user
 
-	router.get '/saml/initiate/tenant/:key',
-		passports.middleware "authenticate", 'saml',
-			successRedirect: "/"
-			failureRedirect: "/"
-
-	router.post '/saml/consume',
-		passports.middleware "authenticate", 'saml',
-			successRedirect: "/"
-			failureRedirect: "/"
 
 	return router

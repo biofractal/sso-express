@@ -39,22 +39,20 @@ module.exports = (db)->
 		]
 
 	findByProfile:(profile, next) ->
+		console.log 'profile', profile
 		email = @getAttributeValue profile, 'email'
 		userService.findByEmail email, (err, user)=>
 			return next err if err?
 			return next null, user if user?
-			@createUserFromProfile profile, next
+			user = userService.makeEmptyUser()
+			user[property] = @getAttributeValue profile, property for own property of user
+			userService.save user, next
 
 	getAttributeValue: (profile, name)->
-		attributeNames = attributeNameMap[name.toLowerCase()]
-		for attributeName in attributeNames
-			return profile[attributeName] if profile[attributeName]?
-
-	createUserFromProfile: (profile, next)->
-		user = userService.makeEmptyUser()
-		user[property] = @getAttributeValue profile, property for own property of user
-		userService.save user, next
-
+		mappings = attributeNameMap[name.toLowerCase()]
+		return unless mappings?
+		for own property of profile
+			return profile[property] if mappings.some (x)-> x is property.toLowerCase()
 
 
 

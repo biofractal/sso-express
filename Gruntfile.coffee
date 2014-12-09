@@ -29,47 +29,57 @@ module.exports = (grunt) ->
 				dest: 'iis/'
 
 		coffee:
-			node:
+			dev:
+				sourceMap: true
 				expand: true
 				flatten: true
-				cwd: 'node'
-				src: ['**/*.coffee','**/*.config.coffee']
+				cwd: './'
+				src: ['angular/**/*.coffee', 'node/**/*.coffee']
 				dest: 'build/'
 				ext: '.js'
 
-		watch:
-			node:
-				files: ['node/**/*.coffee']
-				tasks: ['coffee:node', 'copy:node', 'clean:build']
+		jade:
+			dist:
+				expand: true
+				flatten:true
+				src: ['./angular/**/*.jade']
+				dest: 'build'
+				ext: '.html'
 
-		nodemon:
-			dev:
-				script: 'iis/node-server.js'
-				options:
-					ignore: ['node_modules/**', 'build/**']
+		watch:
+			coffee:
+				files: ['**/*.coffee', '**/*.jade', '!Gruntfile.coffee']
+				tasks: ['build']
 
 		concurrent:
+			build:
+				tasks: ['coffee', 'jade']
+				options:
+					logConcurrentOutput: true
+					limit:4
 			local:
-				tasks: ['watch:node']
+				tasks: ['watch']
 				options:
 					logConcurrentOutput: true
 					limit:4
 
 		open :
 			dev :
-				#path: 'http://sso-express.localhost/'
-				#path: 'http://sso-express.localhost/sso/saml/initiate/tenant/openid'
-				path: 'http://sso-express.localhost/sso/saml/initiate/tenant/testshib?qkey=testshib'
+				path: 'http://sso-express.localhost/#/home'
+				#path: 'http://sso-express.localhost/api/sso/openidp/initiate/saml'
+				#path: 'http://sso-express.localhost/api/sso/testshib/initiate/saml'
+				#path: 'http://sso-express.localhost/api/sso/ssocircle/initiate/saml'
 
 
 	grunt.loadNpmTasks 'grunt-contrib-clean'
 	grunt.loadNpmTasks 'grunt-contrib-copy'
 	grunt.loadNpmTasks 'grunt-contrib-coffee'
+	grunt.loadNpmTasks 'grunt-contrib-jade'
 	grunt.loadNpmTasks 'grunt-contrib-watch'
-	grunt.loadNpmTasks 'grunt-nodemon'
 	grunt.loadNpmTasks 'grunt-concurrent'
 	grunt.loadNpmTasks 'grunt-open'
 
-	grunt.registerTask 'default', ['clean', 'coffee:node', 'copy', 'clean:build', 'open', 'concurrent:local']
+	grunt.registerTask 'build',   ['concurrent:build', 'copy','clean']
+	grunt.registerTask 'default', ['build', 'open', 'concurrent:local']
 
 

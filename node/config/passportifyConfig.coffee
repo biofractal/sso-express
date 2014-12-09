@@ -1,24 +1,30 @@
 Passport = require('passport').Passport
+routes = require('routes')()
 async = require 'async'
 
 module.exports = (appConfig, db)->
 	userService = require('./UserService') db
 	tenantService = require('./TenantService') db
 	strategyFactory = require('./StrategyFactory') appConfig, db
+	routes.addRoute '/:tenentKey/initiate/saml', ->
 
-	getConfig: (req, next) ->
-		console.log 'in getConfig'
-		key = 'testshib'
+	getTenantKey: (req, next) ->
+		console.log req.path
+		key = req.body?.RelayState ? routes.match(req.path).params.tenentKey
+		next null, key
+
+	makeStrategy: (tenantKey, next) ->
 		async.waterfall [
-			(next)-> tenantService.findByKey key, next
+			(next)-> tenantService.findByKey tenantKey, next
 			(tenant, next)-> strategyFactory.make tenant, next
 		], (err, strategy)->
 			return next err if err?
-			next null, key, strategy
+			next null, strategy
 
-	createInstance: (options, next) ->
+	makePassport: (strategy, next) ->
 		instance = new Passport()
-		instance.use options.name, options.strategy
+		instance.use strategy.name, strategy.instance
+
 		instance.serializeUser (user, next) ->
 			next null, user._id
 
