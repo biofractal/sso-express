@@ -4,7 +4,8 @@ BasicStrategy = require('passport-http').BasicStrategy
 
 module.exports = (appConfig, db)->
 	make:(tenant, next)->
-		switch tenant.strategy.name
+		name = tenant.strategy.name
+		switch name
 			when 'saml'
 				return next null,
 					name: name

@@ -27,18 +27,25 @@ module.exports = (options) ->
 			next null, passport
 
 	intercept: ->
+		strategyName=null
 		(req, res, next) =>
 			async.waterfall [
 				(next)->
 					getTenantKey req, next
-				(tenantKey,next)=>
+				(tenantKey, next)=>
 					@getStrategy tenantKey, next
 				(tenantKey, strategy, next)=>
+					strategyName = strategy.name
 					@getPassport tenantKey, strategy, next
 			], (err, passport)->
 				return next err if err?
+				passport.strategyName = strategyName
 				req.passport = passport
 				next()
+
+	authenticate: ->
+		(req, res, next) =>
+			@run('authenticate', req.passport.strategyName)(req, res, next)
 
 	run: (name, args...) ->
 		key = "#{name}.#{index++}"

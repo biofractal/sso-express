@@ -2,4 +2,4 @@
 h1 Tenants
 ul(ng-repeat='tenant in tenants track by tenant._id')
 	li
-		a(href='http://sso-express.localhost/api/sso/{{tenant.key}}/initiate/saml' target='_blank') {{tenant.key}}
+		a(href='http://sso-express.localhost/api/sso/{{tenant.key}}/initiate/{{tenant.strategy.name}}' target='_blank') {{tenant.key}}

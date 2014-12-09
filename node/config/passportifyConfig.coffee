@@ -6,10 +6,9 @@ module.exports = (appConfig, db)->
 	userService = require('./UserService') db
 	tenantService = require('./TenantService') db
 	strategyFactory = require('./StrategyFactory') appConfig, db
-	routes.addRoute '/:tenentKey/initiate/saml', ->
+	routes.addRoute '/:tenentKey/initiate/:strategy', ->
 
 	getTenantKey: (req, next) ->
-		console.log req.path
 		key = req.body?.RelayState ? routes.match(req.path).params.tenentKey
 		next null, key
 
