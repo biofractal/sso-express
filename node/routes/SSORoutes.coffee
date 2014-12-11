@@ -8,7 +8,8 @@ module.exports = (passportify) ->
 		passportify.authenticate()
 	,
 		(req, res)->
-				res.json req.user
+			console.log 'res', res
+			res.json req.user
 
 	router.post '/consume/saml',
 		passportify.authenticate()

@@ -1,5 +1,9 @@
 
 h1 Tenants
-ul(ng-repeat='tenant in tenants track by tenant._id')
-	li
-		a(href='http://sso-express.localhost/api/sso/{{tenant.key}}/initiate/{{tenant.strategy.name}}' target='_blank') {{tenant.key}}
+ul
+	li(ng-repeat='tenant in tenants track by tenant._id')
+		a(href ui-sref="user({tenantKey:'{{tenant.key}}', strategyName:'{{tenant.strategy.name}}'})") {{tenant.key}}
+
+ul
+	li(ng-repeat='tenant in tenants track by tenant._id')
+		a(href="api/sso/{{tenant.key}}/initiate/{{tenant.strategy.name}}" target='_blank') {{tenant.key}}
