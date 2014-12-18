@@ -4,16 +4,16 @@ attributeMap = require './SamlAttributeMap'
 
 module.exports=(config, tenant, db)->
 	userService = require('./UserService') db
-	saml=config.passport.saml
-	decryptionPvk=fs.readFileSync saml.privateKeyFile
+	sp=config.passport.saml
+	idp=tenant.strategy
 
 	name: 'saml'
 	instance:new Strategy
-		path: saml.path
-		decryptionPvk: decryptionPvk
-		issuer: saml.issuer
-		identifierFormat: tenant.strategy.identifierFormat
-		entryPoint: tenant.strategy.entryPoint
+		path: sp.callback
+		decryptionPvk: fs.readFileSync sp.privateKeyFile
+		issuer: sp.issuer
+		identifierFormat: idp.identifierFormat
+		entryPoint: idp.entryPoint
 		additionalParams:{'RelayState':tenant.key}
 		,
 		(attributes, next) ->

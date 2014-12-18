@@ -6,7 +6,7 @@ module.exports = (appConfig, db)->
 	userService = require('./UserService') db
 	tenantService = require('./TenantService') db
 	strategyFactory = require('./StrategyFactory') appConfig, db
-	routes.addRoute '/:tenentKey/initiate/:strategy', ->
+	routes.addRoute '/:tenentKey/:strategy', ->
 
 	getTenantKey: (req, next) ->
 		key = req.body?.RelayState ? routes.match(req.path).params.tenentKey

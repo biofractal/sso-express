@@ -4,13 +4,13 @@ module.exports = (passportify) ->
 	router.use passportify.run "initialize"
 	router.use passportify.run "session"
 
-	router.all '/:tenantKey/initiate/:strategy',
+	router.all '/:tenantKey/:strategy',
 		passportify.authenticate()
 	,
 		(req, res)->
 			res.json req.user
 
-	router.post '/consume/saml',
+	router.post '/consume/:strategy',
 		passportify.authenticate()
 	,
 		(req, res)->

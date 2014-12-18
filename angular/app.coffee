@@ -15,7 +15,7 @@ angular
 			params:{'tenantKey':{}, 'strategyName':{}}
 			resolve:
 				user:($http, $stateParams)->
-					$http.get "api/sso/#{$stateParams.tenantKey}/initiate/#{$stateParams.strategyName}"
+					$http.get "api/sso/#{$stateParams.tenantKey}/#{$stateParams.strategyName}"
 					.success (data)->
 						console.log 'data', data
 					.error (data, status, headers, config)->

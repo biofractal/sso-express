@@ -6,4 +6,4 @@ ul
 
 ul
 	li(ng-repeat='tenant in tenants track by tenant._id')
-		a(href="api/sso/{{tenant.key}}/initiate/{{tenant.strategy.name}}" target='_blank') {{tenant.key}}
+		a(href="api/sso/{{tenant.key}}/{{tenant.strategy.name}}" target='_blank') {{tenant.key}}
