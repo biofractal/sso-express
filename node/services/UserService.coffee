@@ -1,3 +1,5 @@
+async = require 'async'
+
 module.exports = (db)->
 	users = db.get 'users'
 
@@ -16,9 +18,24 @@ module.exports = (db)->
 			return next err if err?
 			next null, user
 
+	findOrCreate: (attributes, map, next)->
+		attributeService = require('./AttributeService') attributes, map
+		email = attributeService.get 'email'
+		async.waterfall [
+			(next)=>
+				@findByEmail email, next
+			(user, next)=>
+				return finish null, user if user?
+				attributeService.set @makeEmptyUser(), next
+			(user, next)=>
+				@save user, next
+		], finish=(err, user)->
+			return next err if err?
+			next null, user
+
 	makeEmptyUser: ->
 		email:undefined
-		password:undefined
 		displayname:undefined
 		firstname:undefined
 		lastname:undefined
+		password:undefined

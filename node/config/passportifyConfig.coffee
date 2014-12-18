@@ -14,25 +14,27 @@ module.exports = (appConfig, db)->
 
 	makeStrategy: (tenantKey, next) ->
 		async.waterfall [
-			(next)-> tenantService.findByKey tenantKey, next
-			(tenant, next)-> strategyFactory.make tenant, next
+			(next)->
+				tenantService.findByKey tenantKey, next
+			(tenant, next)->
+				strategyFactory.make tenant, next
 		], (err, strategy)->
 			return next err if err?
 			next null, strategy
 
 	makePassport: (strategy, next) ->
-		instance = new Passport()
-		instance.use strategy.name, strategy.instance
+		passport = new Passport()
+		passport.use strategy.name, strategy.instance
 
-		instance.serializeUser (user, next) ->
+		passport.serializeUser (user, next) ->
 			next null, user._id
 
-		instance.deserializeUser (id, next) ->
+		passport.deserializeUser (id, next) ->
 			userService.findById id, (err, user) ->
 				return next err if err?
 				next null, user
 
-		next null, instance
+		next null, passport
 
 
 

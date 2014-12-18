@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "start": "node-server.js"
+    "prepublish": "coffee -o ./node_modules/ims-lti/lib -c node_modules/ims-lti/src/"
   },
   "repository": {
     "type": "git",
@@ -18,9 +18,12 @@
     "eidetic": "^0.2.2",
     "express": "*",
     "express-session": "~1.9.1",
+    "ims-lti": "git://github.com/omsmith/ims-lti.git",
     "monk": "~0.9.0",
     "passport": "~0.2.1",
     "passport-http": "^0.2.2",
+    "passport-lti": "0.0.3",
+    "passport-oauth1": "^1.0.1",
     "passport-saml": "~0.6.0",
     "request": "~2.34.0",
     "routes": "^2.0.0",

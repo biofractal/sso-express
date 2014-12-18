@@ -57,11 +57,6 @@ module.exports = (grunt) ->
 				options:
 					logConcurrentOutput: true
 					limit:4
-			local:
-				tasks: ['watch']
-				options:
-					logConcurrentOutput: true
-					limit:4
 
 		open :
 			dev :
@@ -80,6 +75,6 @@ module.exports = (grunt) ->
 	grunt.loadNpmTasks 'grunt-open'
 
 	grunt.registerTask 'build',   ['concurrent:build', 'copy','clean']
-	grunt.registerTask 'default', ['build', 'open', 'concurrent:local']
+	grunt.registerTask 'default', ['build', 'open', 'watch']
 
 
