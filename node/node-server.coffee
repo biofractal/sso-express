@@ -6,7 +6,7 @@ bodyParser = require 'body-parser'
 cookieParser = require 'cookie-parser'
 session = require 'express-session'
 winston = require 'winston'
-passportify = require('./Passportify') require('./passportifyConfig') appConfig, db
+passportify = require('./Passportify') require('./PassportifyConfig') appConfig, db
 
 #app
 app = express()
